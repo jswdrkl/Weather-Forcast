@@ -1,450 +1,359 @@
 <!DOCTYPE html>
-<html lang="mr" class="light">
+<html lang="mr" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>हवामान(वा)चा अंदाज..</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari:wght@300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>हवामान(वा)चा अंदाज..</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: IBM Plex Sans and IBM Plex Sans Devanagari -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Devanagari:wght@300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            marathi: ['"IBM Plex Sans Devanagari"', '"IBM Plex Sans"', 'sans-serif'],
+            sans: ['"IBM Plex Sans"', '"IBM Plex Sans Devanagari"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'IBM Plex Sans Devanagari', 'IBM Plex Sans', sans-serif;
+      word-break: normal;
+      overflow-wrap: break-word;
+      hyphens: none;
+      -webkit-hyphens: none;
+    }
     
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['"IBM Plex Sans Devanagari"', '"IBM Plex Sans"', 'sans-serif'],
-                    }
-                }
-            }
-        };
-    </script>
+    .text-justify-custom {
+      text-align: justify;
+      text-justify: inter-word;
+    }
 
-    <style>
-        * {
-            font-family: 'IBM Plex Sans Devanagari', 'IBM Plex Sans', sans-serif;
-            hyphens: none;
-            -webkit-hyphens: none;
-            -ms-hyphens: none;
-            word-break: normal;
-            overflow-wrap: break-word;
-        }
+    /* SVG Animations */
+    @keyframes float-cloud {
+      0%, 100% { transform: translateX(0px) translateY(0px); }
+      50% { transform: translateX(8px) translateY(-5px); }
+    }
+    @keyframes spin-sun {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes pulse-brain {
+      0%, 100% { transform: scale(1); opacity: 0.92; }
+      50% { transform: scale(1.04); opacity: 1; }
+    }
+    @keyframes sway-breeze {
+      0%, 100% { stroke-dashoffset: 0; }
+      50% { stroke-dashoffset: 14; }
+    }
+    @keyframes drop-rain {
+      0% { transform: translateY(0); opacity: 0; }
+      50% { opacity: 0.8; }
+      100% { transform: translateY(12px); opacity: 0; }
+    }
 
-        .text-justified-content {
-            text-align: justify;
-            text-justify: inter-word;
-            line-height: 1.95;
-        }
-
-        /* SVG Keyframe Animations */
-        @keyframes sun-spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        @keyframes pulse-gentle {
-            0%, 100% { transform: scale(1); opacity: 0.95; }
-            50% { transform: scale(1.05); opacity: 1; }
-        }
-        @keyframes float-cloud {
-            0%, 100% { transform: translateX(0px); }
-            50% { transform: translateX(12px); }
-        }
-        @keyframes rain-fall {
-            0% { transform: translateY(-8px); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateY(14px); opacity: 0; }
-        }
-        @keyframes satellite-orbit {
-            0% { transform: rotate(0deg) translateX(95px) rotate(0deg); }
-            100% { transform: rotate(360deg) translateX(95px) rotate(-360deg); }
-        }
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.3; transform: scale(0.8); }
-            50% { opacity: 1; transform: scale(1.2); }
-        }
-        @keyframes whirlwind-spin {
-            0% { transform: rotate(0deg) scale(0.9); }
-            50% { transform: rotate(180deg) scale(1.05); }
-            100% { transform: rotate(360deg) scale(0.9); }
-        }
-
-        .anim-sun {
-            transform-origin: 100px 90px;
-            animation: sun-spin 26s linear infinite;
-        }
-        .anim-pulse {
-            transform-origin: center;
-            animation: pulse-gentle 4.5s ease-in-out infinite;
-        }
-        .anim-cloud {
-            animation: float-cloud 6s ease-in-out infinite;
-        }
-        .anim-rain-1 { animation: rain-fall 1.5s linear infinite; }
-        .anim-rain-2 { animation: rain-fall 1.7s linear 0.4s infinite; }
-        .anim-rain-3 { animation: rain-fall 1.6s linear 0.8s infinite; }
-        .anim-satellite {
-            transform-origin: 260px 170px;
-            animation: satellite-orbit 14s linear infinite;
-        }
-        .anim-star-1 { animation: twinkle 2.2s ease-in-out infinite; }
-        .anim-star-2 { animation: twinkle 3s ease-in-out 1s infinite; }
-        .anim-star-3 { animation: twinkle 2.6s ease-in-out 0.5s infinite; }
-        .anim-whirl {
-            transform-origin: 395px 95px;
-            animation: whirlwind-spin 8s ease-in-out infinite;
-        }
-
-        /* Keyword highlight styling */
-        .kw {
-            padding: 0.12rem 0.45rem;
-            border-radius: 0.375rem;
-            display: inline-block;
-            transition: all 0.25s ease;
-            font-weight: 500;
-        }
-        .light .kw {
-            background-color: #f1f5f9;
-            color: #1e3a8a;
-            border: 1px solid #e2e8f0;
-        }
-        .dark .kw {
-            background-color: #1e293b;
-            color: #93c5fd;
-            border: 1px solid #334155;
-        }
-        .light .kw:hover {
-            background-color: #e0e7ff;
-            color: #1e1b4b;
-        }
-        .dark .kw:hover {
-            background-color: #312e81;
-            color: #e0e7ff;
-        }
-    </style>
+    .anim-cloud {
+      animation: float-cloud 5s ease-in-out infinite;
+    }
+    .anim-sun {
+      transform-origin: 155px 75px;
+      animation: spin-sun 24s linear infinite;
+    }
+    .anim-brain {
+      transform-origin: 195px 125px;
+      animation: pulse-brain 4s ease-in-out infinite;
+    }
+    .anim-wind {
+      stroke-dasharray: 8 6;
+      animation: sway-breeze 3s ease-in-out infinite;
+    }
+    .anim-rain-1 { animation: drop-rain 1.8s ease-in infinite; }
+    .anim-rain-2 { animation: drop-rain 1.8s ease-in 0.6s infinite; }
+    .anim-rain-3 { animation: drop-rain 1.8s ease-in 1.2s infinite; }
+  </style>
 </head>
 
-<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200 min-h-screen transition-colors duration-300 antialiased selection:bg-indigo-100 selection:text-indigo-900 dark:selection:bg-indigo-900 dark:selection:text-indigo-100">
+<body class="bg-amber-50/40 text-stone-800 dark:bg-stone-950 dark:text-stone-100 transition-colors duration-300 min-h-screen antialiased flex flex-col justify-between selection:bg-amber-200 dark:selection:bg-amber-900/60">
 
-    <div class="fixed top-4 right-4 sm:top-6 sm:right-6 z-50 flex items-center gap-2.5 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md p-1.5 rounded-full border border-slate-200/80 dark:border-slate-800 shadow-md">
-        <!-- Theme Toggle Button -->
-        <button id="themeToggleBtn" type="button" aria-label="Toggle Theme" class="p-2.5 rounded-full text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus:outline-none">
-            <!-- Sun Icon (shown in dark mode) -->
-            <svg id="sunIcon" class="w-5 h-5 hidden dark:block text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path>
-            </svg>
-            <!-- Moon Icon (shown in light mode) -->
-            <svg id="moonIcon" class="w-5 h-5 block dark:hidden text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
-            </svg>
-        </button>
+  <header class="w-full max-w-3xl mx-auto px-5 pt-6 pb-2 flex items-center justify-end gap-3">
+    <!-- Web Share Button -->
+    <button id="shareBtn" type="button" aria-label="Share" class="p-2.5 rounded-full border border-stone-200/80 dark:border-stone-800 bg-white/80 dark:bg-stone-900/80 backdrop-blur shadow-sm hover:shadow text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white hover:bg-stone-100/60 dark:hover:bg-stone-800/80 transition-all duration-200">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093m-0.283-1.093L16.783 5.457m0 0a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185m0 0L7.5 12m9.283 6.543a2.25 2.25 0 103.933 2.186 2.25 2.25 0 00-3.933-2.186m0 0L7.5 12" />
+      </svg>
+    </button>
 
-        <!-- Share Button placed beside theme toggle -->
-        <button id="shareBtn" type="button" aria-label="Share Content" class="p-2.5 rounded-full text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors focus:outline-none flex items-center justify-center">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"></path>
-            </svg>
-        </button>
-    </div>
+    <!-- Theme Toggle Button -->
+    <button id="themeToggleBtn" type="button" aria-label="Toggle Theme" class="p-2.5 rounded-full border border-stone-200/80 dark:border-stone-800 bg-white/80 dark:bg-stone-900/80 backdrop-blur shadow-sm hover:shadow text-stone-600 dark:text-stone-300 hover:text-amber-500 dark:hover:text-amber-300 hover:bg-stone-100/60 dark:hover:bg-stone-800/80 transition-all duration-200">
+      <!-- Sun Icon (for Dark Mode) -->
+      <svg id="sunIcon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+      </svg>
+      <!-- Moon Icon (for Light Mode) -->
+      <svg id="moonIcon" class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+      </svg>
+    </button>
+  </header>
 
-    <!-- Notification Toast for Copy/Share feedback -->
-    <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 transition-opacity duration-300 bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 px-4 py-2 rounded-full text-sm font-medium shadow-lg border border-slate-700/30">
-        लिंक कॉपी झाली!
-    </div>
+  <!-- Notification Toast for Copied URL / Share Status -->
+  <div id="toastMessage" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 px-4 py-2 rounded-xl text-sm font-medium bg-stone-900 text-stone-50 dark:bg-white dark:text-stone-900 shadow-lg pointer-events-none opacity-0 transition-opacity duration-300">
+  </div>
 
-    <main class="w-full max-w-3xl mx-auto px-5 sm:px-8 py-12 sm:py-16">
-        <article class="bg-white/90 dark:bg-slate-900/90 backdrop-blur-sm border border-slate-200/80 dark:border-slate-800/80 rounded-2xl shadow-sm p-6 sm:p-10 md:p-12 space-y-7 text-justified-content text-[1.07rem] sm:text-[1.125rem]">
+  <main class="w-full max-w-3xl mx-auto px-5 sm:px-8 md:px-12 py-6 flex-grow">
+    
+    <!-- Title Illustration: Weather of Sky & Mind ('मन-मान') -->
+    <div class="w-full flex justify-center mb-6">
+      <div class="w-64 sm:w-72 max-w-full drop-shadow-sm select-none">
+        <svg viewBox="0 0 380 230" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-full h-auto">
+          <defs>
+            <!-- Sky/Sun Gradients -->
+            <radialGradient id="sunGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(155 75) rotate(90) scale(50)">
+              <stop stop-color="#FCD34D"/>
+              <stop offset="0.6" stop-color="#F59E0B" stop-opacity="0.8"/>
+              <stop offset="1" stop-color="#EA580C" stop-opacity="0"/>
+            </radialGradient>
+            <linearGradient id="cloudGrad" x1="160" y1="90" x2="270" y2="150" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#60A5FA"/>
+              <stop offset="0.5" stop-color="#38BDF8"/>
+              <stop offset="1" stop-color="#818CF8"/>
+            </linearGradient>
+            <linearGradient id="brainGrad" x1="150" y1="90" x2="240" y2="160" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#EC4899"/>
+              <stop offset="0.5" stop-color="#A855F7"/>
+              <stop offset="1" stop-color="#6366F1"/>
+            </linearGradient>
+            <linearGradient id="moonGrad" x1="280" y1="50" x2="315" y2="90" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#FEF08A"/>
+              <stop offset="1" stop-color="#FBBF24"/>
+            </linearGradient>
+          </defs>
+
+          <!-- Breezes / Wind streams -->
+          <path class="anim-wind" d="M60 135 C100 120, 130 145, 170 130" stroke="#38BDF8" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>
+          <path class="anim-wind" d="M45 155 C90 145, 120 168, 160 152" stroke="#818CF8" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+          <path class="anim-wind" d="M80 115 C115 105, 140 125, 180 112" stroke="#F472B6" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+
+          <!-- Animated Sun with Rays -->
+          <g class="anim-sun">
+            <circle cx="155" cy="75" r="30" fill="url(#sunGlow)"/>
+            <circle cx="155" cy="75" r="18" fill="#F59E0B"/>
+            <g stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round">
+              <line x1="155" y1="46" x2="155" y2="39" />
+              <line x1="155" y1="104" x2="155" y2="111" />
+              <line x1="126" y1="75" x2="119" y2="75" />
+              <line x1="184" y1="75" x2="191" y2="75" />
+              <line x1="134" y1="54" x2="129" y2="49" />
+              <line x1="176" y1="96" x2="181" y2="101" />
+              <line x1="134" y1="96" x2="129" y2="101" />
+              <line x1="176" y1="54" x2="181" y2="49" />
+            </g>
+          </g>
+
+          <!-- Kojagiri Moon -->
+          <g transform="translate(290, 65)">
+            <circle cx="0" cy="0" r="14" fill="url(#moonGrad)" filter="drop-shadow(0px 0px 6px rgba(253, 224, 71, 0.5))"/>
+            <circle cx="-3" cy="-2" r="2.5" fill="#EAB308" opacity="0.3"/>
+            <circle cx="3" cy="4" r="3.5" fill="#EAB308" opacity="0.25"/>
+          </g>
+
+          <!-- Outer Atmospheric Cloud -->
+          <g class="anim-cloud">
+            <path d="M160 148 C155 135 162 120 176 114 C183 95 204 84 224 88 C238 78 258 81 268 94 C279 96 288 106 288 118 C298 124 302 136 297 147 C293 156 283 162 272 162 L180 162 C168 162 159 156 160 148 Z" 
+                  fill="url(#cloudGrad)" opacity="0.28"/>
+          </g>
+
+          <!-- Mind/Thought Network with Weather Harmony (मन-मान) -->
+          <g class="anim-brain">
+            <!-- Brain Hemisphere Outline -->
+            <path d="M175 140 C165 132 165 116 175 106 C173 95 180 84 193 82 C200 70 218 69 228 78 C238 72 251 77 256 88 C267 90 274 100 272 112 C280 120 280 133 272 142 C265 151 254 153 246 149 C238 156 226 157 218 151 C210 157 197 156 189 150 C182 150 177 146 175 140 Z" 
+                  fill="url(#brainGrad)" opacity="0.88"/>
             
-            <!-- Original Document Title -->
-            <h1 class="text-2xl sm:text-3xl font-bold text-center text-slate-900 dark:text-slate-50 tracking-tight leading-snug pb-2">
-                हवामान(वा)चा अंदाज..
-            </h1>
+            <!-- Neural Synapses / Lightning sparks -->
+            <path d="M188 115 Q198 122 208 112 T232 120 T255 105" fill="none" stroke="#FFFFFF" stroke-width="1.8" stroke-linecap="round" opacity="0.85"/>
+            <path d="M195 136 Q210 128 222 138 T248 132" fill="none" stroke="#FEF08A" stroke-width="1.6" stroke-linecap="round" opacity="0.85"/>
+            
+            <!-- Thought points / Stars -->
+            <circle cx="188" cy="115" r="2.5" fill="#FFFFFF"/>
+            <circle cx="208" cy="112" r="2.5" fill="#FFFFFF"/>
+            <circle cx="232" cy="120" r="2.5" fill="#FFFFFF"/>
+            <circle cx="255" cy="105" r="2.5" fill="#FFFFFF"/>
+            <circle cx="222" cy="138" r="2.2" fill="#FEF08A"/>
+          </g>
 
-            <div class="w-full my-6 rounded-2xl overflow-hidden shadow-inner border border-slate-200/60 dark:border-slate-800/80 bg-gradient-to-br from-sky-50 via-indigo-50/40 to-amber-50/30 dark:from-slate-900 dark:via-indigo-950/40 dark:to-slate-900 p-2 sm:p-4">
-                <svg viewBox="0 0 520 280" class="w-full h-auto select-none rounded-xl" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="हवामान आणि मन-मानाचे नाते दर्शवणारे चित्र">
-                    <defs>
-                        <!-- Sky Background Gradient -->
-                        <linearGradient id="skyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#0284c7" stop-opacity="0.15" />
-                            <stop offset="50%" stop-color="#6366f1" stop-opacity="0.1" />
-                            <stop offset="100%" stop-color="#f59e0b" stop-opacity="0.15" />
-                        </linearGradient>
+          <!-- Gentle Rain Drops falling from consciousness -->
+          <g stroke="#38BDF8" stroke-width="2" stroke-linecap="round">
+            <line class="anim-rain-1" x1="185" y1="168" x2="182" y2="176"/>
+            <line class="anim-rain-2" x1="215" y1="168" x2="212" y2="177"/>
+            <line class="anim-rain-3" x1="245" y1="168" x2="242" y2="176"/>
+          </g>
 
-                        <!-- Sun Gradient -->
-                        <radialGradient id="sunGrad" cx="50%" cy="50%" r="50%">
-                            <stop offset="0%" stop-color="#fef08a" />
-                            <stop offset="40%" stop-color="#fbbf24" />
-                            <stop offset="100%" stop-color="#f97316" />
-                        </radialGradient>
+          <!-- Small Sparkles -->
+          <path d="M312 118 L314 122 L318 124 L314 126 L312 130 L310 126 L306 124 L310 122 Z" fill="#FBBF24" opacity="0.8"/>
+          <path d="M115 88 L116.5 91.5 L120 93 L116.5 94.5 L115 98 L113.5 94.5 L110 93 L113.5 91.5 Z" fill="#F59E0B" opacity="0.75"/>
+        </svg>
+      </div>
+    </div>
 
-                        <!-- Moon Gradient -->
-                        <radialGradient id="moonGrad" cx="30%" cy="30%" r="70%">
-                            <stop offset="0%" stop-color="#ffffff" />
-                            <stop offset="55%" stop-color="#f1f5f9" />
-                            <stop offset="100%" stop-color="#cbd5e1" />
-                        </radialGradient>
+    <!-- Title Centered in Document -->
+    <h1 class="text-2xl sm:text-3xl md:text-4xl font-semibold text-center tracking-normal text-amber-900 dark:text-amber-200 mb-8 sm:mb-10 leading-snug">
+      हवामान(वा)चा अंदाज..
+    </h1>
 
-                        <!-- Cloud Gradients -->
-                        <linearGradient id="cloudGrad1" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stop-color="#f8fafc" />
-                            <stop offset="100%" stop-color="#94a3b8" />
-                        </linearGradient>
-                        <linearGradient id="cloudGradDark" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" stop-color="#64748b" />
-                            <stop offset="100%" stop-color="#334155" />
-                        </linearGradient>
+    <article class="space-y-6 text-base sm:text-lg leading-relaxed text-stone-700 dark:text-stone-300 font-normal">
+      
+      <p class="text-justify-custom indent-6 sm:indent-8">
+        हवेचे तापमान, दाब व आर्द्रता, वाऱ्याची गती व दिशा, सूर्य–चंद्र यांच्या आकाशात असण्या-नसण्याची स्थिती या आणि निसर्गातील इतर अनेक घटकांच्या परस्परसंबंधातून निर्माण होणारी वादळे, ढग, पाऊस, विजांचा कडकडाट, पूर, दुष्काळ या सगळ्यांचा एकंदर जीवनमानावर पडणारा प्रभाव याचा अभ्यास करणाऱ्या शास्त्रास हवामानशास्त्र असे म्हणतात.
+      </p>
 
-                        <!-- Orbit glow -->
-                        <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
-                            <feGaussianBlur stdDeviation="3" result="blur" />
-                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                        </filter>
-                    </defs>
+      <p class="text-justify-custom indent-6 sm:indent-8">
+        वातावरणातील घडामोडींचे निरिक्षण करून त्यांचा अभ्यास करणे, त्यानुसार नजीकच्या आणि दूरच्या भविष्यातील हवामानाविषयी अंदाज बांधणे हे हवामानशास्त्रज्ञांचे प्रमुख काम असते. आधुनिक काळात यासाठीच्या लागणाऱ्या 'डेटा'ची उपलब्धता केवळ जमिनीवरील वेधशाळांतील नोंदीपुरती मर्यादित न राहता अवकाशातील उपग्रहांकडून मिळणाऱ्या अफाट माहितीपर्यंत विस्तारली आहे आणि महासंगणकांच्या आगमनानंतर वर्तवल्या जाणाऱ्या अंदाजांची अचूकता long-range पासून minute-cast पर्यंत जवळ आली आहे.
+      </p>
 
-                    <!-- Background Base -->
-                    <rect width="520" height="280" rx="16" fill="url(#skyGrad)" />
+      <p class="text-justify-custom indent-6 sm:indent-8">
+        सर्वच सजीव-निर्जीव, त्यांचे परस्पर-संबंध आणि जगातील आर्थिक, सामाजिक, राजकीय व इतर व्यवहार यांच्यावर हवामान आणि त्यातील बदल यांचा अत्यंत दूरगामी परिणाम होत असतो. त्यामुळे हवामानाचा अभ्यास आणि अंदाज याला जगात अनन्यसाधारण महत्व आहे. अंदाजांची अचूकता केवळ long-rangeच नव्हे तर minute-cast पर्यंत आणण्याच्या खटाटोपामागे भविष्यातील धोके टाळता आले नाही तरी त्यांचा दैनंदिन जीवनावर पडणारा प्रभाव कमीत-कमी करता येणे हा उद्देश असतो.
+      </p>
 
-                    <!-- Atmosphere / Mind Bridge Aura -->
-                    <path d="M 40,220 C 140,160 380,160 480,220" fill="none" stroke="currentColor" stroke-opacity="0.12" stroke-width="2" stroke-dasharray="6,6" />
+      <!-- Centered Separator from Original Document -->
+      <div class="text-center py-3 text-amber-700/80 dark:text-amber-400/80 tracking-widest text-lg sm:text-xl select-none">
+        ⧫⧫⧫
+      </div>
 
-                    <!-- Sun & Warmth (Left) representing आशावादी मन & कोवळे ऊन -->
-                    <g transform="translate(10, 10)">
-                        <!-- Animated Sun Rays -->
-                        <g class="anim-sun">
-                            <line x1="100" y1="52" x2="100" y2="40" stroke="#f59e0b" stroke-width="3.5" stroke-linecap="round" />
-                            <line x1="100" y1="128" x2="100" y2="140" stroke="#f59e0b" stroke-width="3.5" stroke-linecap="round" />
-                            <line x1="62" y1="90" x2="50" y2="90" stroke="#f59e0b" stroke-width="3.5" stroke-linecap="round" />
-                            <line x1="138" y1="90" x2="150" y2="90" stroke="#f59e0b" stroke-width="3.5" stroke-linecap="round" />
-                            <line x1="73" y1="63" x2="64" y2="54" stroke="#fbbf24" stroke-width="3" stroke-linecap="round" />
-                            <line x1="127" y1="117" x2="136" y2="126" stroke="#fbbf24" stroke-width="3" stroke-linecap="round" />
-                            <line x1="73" y1="117" x2="64" y2="126" stroke="#fbbf24" stroke-width="3" stroke-linecap="round" />
-                            <line x1="127" y1="63" x2="136" y2="54" stroke="#fbbf24" stroke-width="3" stroke-linecap="round" />
-                        </g>
-                        <!-- Sun Core -->
-                        <circle cx="100" cy="90" r="26" fill="url(#sunGrad)" filter="url(#glow)" class="anim-pulse" />
-                    </g>
+      <p class="text-justify-custom indent-6 sm:indent-8">
+        आपल्या भाव-भावनांच्या हिंदोळ्यांचे - मानसिक हवामानाचे अर्थात ‘मन-माना’चे असेच काहीसे असते.
+      </p>
 
-                    <!-- Moon & Tranquility (Kojagiri Moon on Right) -->
-                    <g transform="translate(360, 20)">
-                        <circle cx="90" cy="65" r="28" fill="url(#moonGrad)" filter="url(#glow)" class="anim-pulse" />
-                        <!-- Moon Craters / Gentle Texture -->
-                        <circle cx="82" cy="58" r="4.5" fill="#94a3b8" fill-opacity="0.3" />
-                        <circle cx="98" cy="74" r="3.5" fill="#94a3b8" fill-opacity="0.25" />
-                        <circle cx="76" cy="72" r="2.5" fill="#94a3b8" fill-opacity="0.2" />
+      <p class="text-justify-custom indent-6 sm:indent-8">
+        स्वच्छ हवा आणि कोवळे ऊन म्हणजे शांतचित्त आणि आशावादी मन, डोक्यात घोंघावणारे शंका-कुशंकांचे, चिंतेचे काहूर म्हणजे ढगाळ, कुंद हवा आणि उकाडा. चिडचिड म्हणजे वावटळ आणि संताप म्हणजे भयानक वेगवान वाऱ्यांचे चक्रीवादळच जणू. मनाविरुद्ध घडणाऱ्या घटनांचे वर्णन करायला 'दुष्काळात तेरावा’ ही म्हण आहेच.
+      </p>
 
-                        <!-- Twinkling Stars around Moon -->
-                        <path class="anim-star-1" d="M 40,40 Q 40,46 46,46 Q 40,46 40,52 Q 40,46 34,46 Q 40,46 40,40" fill="#fbbf24" />
-                        <path class="anim-star-2" d="M 130,35 Q 130,40 135,40 Q 130,40 130,45 Q 130,40 125,40 Q 130,40 130,35" fill="#e2e8f0" />
-                        <path class="anim-star-3" d="M 115,105 Q 115,109 119,109 Q 115,109 115,113 Q 115,109 111,109 Q 115,109 115,105" fill="#fef08a" />
-                    </g>
+      <p class="text-justify-custom indent-6 sm:indent-8">
+        पण कोणाचीही मनस्थिती नेहमीच अशी नसते. आपण आवडत्या लोकांबरोबर किंवा एकटे एखादे छानसे पुस्तक वाचत किंवा संगीत ऐकत उबदार घरात असतो ते एका आल्हाददायक पावसाच्या सरीसमान असते आणि आपला छान असलेला 'मूड' म्हणजे स्वच्छ आकाशात चमकत असलेला, शीतल-सुखद प्रकाश देणारा कोजागिरीचा चंद्र.
+      </p>
 
-                    <!-- Storm / Whirlwind (Chakrivadal / Chintanche Kahoor) -->
-                    <g class="anim-whirl">
-                        <path d="M 395,95 m -28,0 a 28,14 0 1,0 56,0 a 28,14 0 1,0 -56,0" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-dasharray="14,6" opacity="0.6" />
-                        <path d="M 395,95 m -18,-6 a 18,9 0 1,0 36,0 a 18,9 0 1,0 -36,0" fill="none" stroke="#0ea5e9" stroke-width="1.8" stroke-linecap="round" opacity="0.7" />
-                        <path d="M 395,95 m -8,-10 a 8,4 0 1,0 16,0 a 8,4 0 1,0 -16,0" fill="none" stroke="#f43f5e" stroke-width="1.5" stroke-linecap="round" opacity="0.8" />
-                    </g>
+      <p class="text-justify-custom indent-6 sm:indent-8">
+        आता इतके, निसर्गाशी साधर्म्य दाखवणारे मन-मान असते हे कळल्यावर त्यातल्या कोणत्या ‘वेदर कंडिशन्स’ चांगल्या आणि कोणत्या वाईट हे वेगळे सांगायला नकोच.
+      </p>
 
-                    <!-- Central Mind / Self Observation Core -->
-                    <g transform="translate(260, 170)">
-                        <!-- Internal Mind Silhouette & Compass Radii -->
-                        <circle cx="0" cy="0" r="42" fill="#6366f1" fill-opacity="0.12" stroke="#6366f1" stroke-width="1.5" stroke-dasharray="4,4" />
-                        <circle cx="0" cy="0" r="28" fill="#818cf8" fill-opacity="0.2" />
+      <p class="text-justify-custom indent-6 sm:indent-8">
+        नैसर्गिक हवामानावर आपल्याला ताबा ठेवता येणे शक्य नसले तरी त्याचा अभ्यास आणि त्यावरून बांधता येणारा अंदाज समजून घेऊन आपण त्याचा होणारा परिणाम सुसह्य करू शकतो किंवा टाळू शकतो, तद्वत;
+      </p>
 
-                        <!-- stylized heart-mind inner core -->
-                        <path d="M 0,-10 C -12,-22 -24,-4 0,16 C 24,-4 12,-22 0,-10 Z" fill="#ec4899" fill-opacity="0.85" filter="url(#glow)" />
-                        <!-- Subtle pulse center -->
-                        <circle cx="0" cy="0" r="4" fill="#ffffff" />
-                        
-                        <!-- Measurement gauges indication marks -->
-                        <path d="M -22,0 L -32,0 M 22,0 L 32,0 M 0,-22 L 0,-32" stroke="#6366f1" stroke-width="2" stroke-linecap="round" />
-                    </g>
+      <p class="text-justify-custom indent-6 sm:indent-8">
+        नियमित आत्मनिरीक्षणाच्या बळावर आपण आपल्यापुरत्या मन-मानाच्या नोंदी ठेवायला सुरुवात करू शकतो. ‘डेटा’ जमा होऊ लागला की आपले कोणते विचार चक्रीवादळात बदलतात, कोणते कुंद वातावरण निर्माण करतात आणि काय केले की कोवळे ऊन, आल्हाददायक तापमान किंवा कोजागिरीच्या चंद्रप्रकाशात न्हाऊन निघण्याची ‘अनुभूती' येते हे समजावून द्यायला महासंगणकाची गरज नसते.
+      </p>
 
-                    <!-- Orbiting Satellite (आत्मनिरीक्षण / Weather Satellite) -->
-                    <g class="anim-satellite">
-                        <!-- Satellite Body & Solar Wings -->
-                        <rect x="250" y="163" width="20" height="14" rx="2" fill="#0284c7" />
-                        <line x1="240" y1="170" x2="250" y2="170" stroke="#38bdf8" stroke-width="2" />
-                        <rect x="232" y="164" width="8" height="12" rx="1" fill="#38bdf8" />
-                        <line x1="270" y1="170" x2="280" y2="170" stroke="#38bdf8" stroke-width="2" />
-                        <rect x="280" y="164" width="8" height="12" rx="1" fill="#38bdf8" />
-                        <circle cx="260" cy="167" r="2" fill="#facc15" />
-                        <!-- Sensor signal beam -->
-                        <path d="M 260,177 L 260,188" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="2,2" />
-                    </g>
+      <p class="text-justify-custom indent-6 sm:indent-8">
+        निसर्गात स्थानिक हवामानावर प्रभाव टाकणारे घटक खूप मोठ्या परिसरात विस्तारलेले असले तरी 'मन-मान' मात्र स्थानिक, नव्हे पूर्णतः आंतरिक स्थितीवर अवलंबून असते.
+      </p>
 
-                    <!-- Clouds & Pleasant Rain Showers (Middle Left) -->
-                    <g class="anim-cloud" transform="translate(130, 95)">
-                        <!-- Raindrops -->
-                        <g transform="translate(30, 50)">
-                            <line class="anim-rain-1" x1="5" y1="0" x2="0" y2="10" stroke="#0284c7" stroke-width="2.2" stroke-linecap="round" />
-                            <line class="anim-rain-2" x1="22" y1="2" x2="17" y2="12" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" />
-                            <line class="anim-rain-3" x1="40" y1="0" x2="35" y2="10" stroke="#0284c7" stroke-width="2.2" stroke-linecap="round" />
-                            <line class="anim-rain-1" x1="58" y1="3" x2="53" y2="13" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round" />
-                        </g>
+      <p class="text-justify-custom indent-6 sm:indent-8">
+        चांगल्या सवयी व ‘मनाचिये ठायी’ सतत असलेला कृतज्ञततेचा भाव हे या ‘मन-मान’शास्त्राच्या नोंदी ठेवायला वापरायचे तापमापक, आर्द्रतामापक, पर्जन्यमापक आहेत. प्रामाणिक आत्मनिरीक्षण म्हणजे weather satellites आणि नियमित साधना म्हणजे ‘परम’ सुपर कॉम्प्युटर!!
+      </p>
 
-                        <!-- Cloud Puff -->
-                        <path d="M 25,40 
-                                 A 20,20 0 0,1 55,20 
-                                 A 25,25 0 0,1 95,25 
-                                 A 18,18 0 0,1 115,40 
-                                 A 12,12 0 0,1 110,54 
-                                 L 25,54 
-                                 A 14,14 0 0,1 25,40 Z" 
-                              fill="url(#cloudGrad1)" 
-                              filter="url(#glow)" />
-                    </g>
+      <!-- Centered Separator from Original Document -->
+      <div class="text-center py-3 text-amber-700/80 dark:text-amber-400/80 tracking-widest text-lg sm:text-xl select-none">
+        ⧫⧫⧫
+      </div>
 
-                    <!-- Ground / Horizon Balance bar -->
-                    <g transform="translate(60, 240)">
-                        <rect x="0" y="0" width="400" height="4" rx="2" fill="#64748b" fill-opacity="0.2" />
-                        <!-- Thermometer / Gauge icons embedded subtly -->
-                        <circle cx="100" cy="2" r="5" fill="#f59e0b" fill-opacity="0.8" />
-                        <circle cx="200" cy="2" r="5" fill="#ec4899" fill-opacity="0.8" />
-                        <circle cx="300" cy="2" r="5" fill="#3b82f6" fill-opacity="0.8" />
-                    </g>
-                </svg>
-            </div>
+      <!-- Centered English statement from original document -->
+      <p class="text-center font-sans font-medium text-stone-800 dark:text-stone-200 py-1 text-base sm:text-lg">
+        So, let us observe, record, analyse, process and try to become a ‘self weather’ forecaster.
+      </p>
 
-            <!-- Paragraph 1 -->
-            <p>
-                हवेचे तापमान, दाब व आर्द्रता, वाऱ्याची गती व दिशा, सूर्य–चंद्र यांच्या आकाशात असण्या-नसण्याची स्थिती या आणि निसर्गातील इतर अनेक घटकांच्या परस्परसंबंधातून निर्माण होणारी वादळे, ढग, पाऊस, विजांचा कडकडाट, पूर, दुष्काळ या सगळ्यांचा एकंदर जीवनमानावर पडणारा प्रभाव याचा अभ्यास करणाऱ्या शास्त्रास <span class="kw">हवामानशास्त्र</span> असे म्हणतात. वातावरणातील घडामोडींचे निरिक्षण करून त्यांचा अभ्यास करणे, त्यानुसार नजीकच्या आणि दूरच्या भविष्यातील हवामानाविषयी अंदाज बांधणे हे हवामानशास्त्रज्ञांचे प्रमुख काम असते. आधुनिक काळात यासाठीच्या लागणाऱ्या <span class="kw">'डेटा'</span>ची उपलब्धता केवळ जमिनीवरील वेधशाळा नोंदीपुरती मर्यादित न राहता अवकाशातील <span class="kw">उपग्रहांकडून</span> मिळणाऱ्या अफाट माहितीपर्यंत विस्तारली आहे आणि <span class="kw">महासंगणकांच्या</span> आगमनानंतर वर्तवल्या जाणाऱ्या अंदाजांची अचूकता <span class="kw">long-range</span> पासून <span class="kw">minute-cast</span> पर्यंत जवळ आली आहे.
-            </p>
+      <!-- Centered Separator from Original Document -->
+      <div class="text-center py-3 text-amber-700/80 dark:text-amber-400/80 tracking-widest text-lg sm:text-xl select-none">
+        ⧫⧫⧫
+      </div>
 
-            <!-- Paragraph 2 -->
-            <p>
-                सर्वच सजीव-निर्जीव, त्यांचे परस्पर-संबंध आणि जगातील आर्थिक, सामाजिक, राजकीय व इतर व्यवहार यांच्यावर हवामान आणि त्यातील बदल यांचा अत्यंत दूरगामी परिणाम होत असतो. त्यामुळे हवामानाचा अभ्यास आणि अंदाज याला जगात अनन्यसाधारण महत्व आहे. अंदाजांची अचूकता केवळ <span class="kw">long-range</span>च नव्हे तर <span class="kw">minute-cast</span> पर्यंत आणण्याच्या खटाटोपामागे भविष्यातील धोके टाळता आले नाही तरी त्यांचा दैनंदिन जीवनावर पडणारा प्रभाव कमीत-कमी करता येणे हा उद्देश असतो.
-            </p>
+      <!-- Centered numeric date string from original document -->
+      <p class="text-center font-sans text-stone-500 dark:text-stone-400 tracking-wider text-sm sm:text-base pt-1 pb-6">
+        २०२५०६१८
+      </p>
 
-            <!-- Paragraph 3 -->
-            <p>
-                आपल्या भाव-भावनांच्या हिंदोळ्यांचे - मानसिक हवामानाचे अर्थात <span class="kw">‘मन-माना’चे</span> असेच काहीसे असते.
-            </p>
+    </article>
+  </main>
 
-            <!-- Paragraph 4 -->
-            <p>
-                <span class="kw">स्वच्छ हवा</span> आणि <span class="kw">कोवळे ऊन</span> म्हणजे <span class="kw">शांतचित्त</span> आणि <span class="kw">आशावादी मन</span>, डोक्यात घोंघावणारे शंका-कुशंकांचे, चिंतेचे काहूर म्हणजे ढगाळ, कुंद हवा आणि उकाडा. चिडचिड म्हणजे <span class="kw">वावटळ</span> आणि संताप म्हणजे भयानक वेगवान वाऱ्यांचे <span class="kw">चक्रीवादळच</span> जणू. मनाविरुद्ध घडणाऱ्या घटनांचे वर्णन करायला 'दुष्काळात तेरावा’ ही म्हण आहेच.
-            </p>
+  <script>
+    // Theme toggle handling
+    const htmlEl = document.documentElement;
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
 
-            <!-- Paragraph 5 -->
-            <p>
-                पण कोणाचीही मनस्थिती नेहमीच अशी नसते. आपण आवडत्या लोकांबरोबर किंवा एकटे एखादे छानसे पुस्तक वाचत किंवा संगीत ऐकत उबदार घरात असतो ते एका आल्हाददायक पावसाच्या सरीसमान असते आणि आपला छान असलेला <span class="kw">'मूड'</span> म्हणजे स्वच्छ आकाशात चमकत असलेला, शीतल-सुखद प्रकाश देणारा <span class="kw">कोजागिरीचा चंद्र</span>.
-            </p>
+    function applyTheme(isDark) {
+      if (isDark) {
+        htmlEl.classList.add('dark');
+        sunIcon.classList.remove('hidden');
+        moonIcon.classList.add('hidden');
+      } else {
+        htmlEl.classList.remove('dark');
+        sunIcon.classList.add('hidden');
+        moonIcon.classList.remove('hidden');
+      }
+    }
 
-            <!-- Paragraph 6 -->
-            <p>
-                आता इतके, निसर्गाशी साधर्म्य दाखवणारे मन-मान असते हे कळल्यावर त्यातल्या कोणत्या <span class="kw">‘वेदर कंडिशन्स’</span> चांगल्या आणि कोणत्या वाईट हे वेगळे सांगायला नकोच.
-            </p>
+    // Initialize theme based on preference or system
+    const userPrefersDark = localStorage.getItem('theme') === 'dark' ||
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    applyTheme(userPrefersDark);
 
-            <!-- Paragraph 7 -->
-            <p>
-                नैसर्गिक हवामानावर आपल्याला ताबा ठेवता येणे शक्य नसले तरी त्याचा अभ्यास आणि त्यावरून बांधता येणारा अंदाज समजून घेऊन आपण त्याचा होणारा परिणाम सुसह्य करू शकतो किंवा टाळू शकतो, तद्वत;
-            </p>
+    themeToggleBtn.addEventListener('click', () => {
+      const willBeDark = !htmlEl.classList.contains('dark');
+      applyTheme(willBeDark);
+      localStorage.setItem('theme', willBeDark ? 'dark' : 'light');
+    });
 
-            <!-- Paragraph 8 -->
-            <p>
-                नियमित <span class="kw">आत्मनिरीक्षणाच्या</span> बळावर आपण आपल्यापुरत्या मन-मानाच्या नोंदी ठेवायला सुरुवात करू शकतो. <span class="kw">‘डेटा’</span> जमा होऊ लागला की आपले कोणते विचार चक्रीवादळात बदलतात, कोणते कुंद वातावरण निर्माण करतात आणि काय केले की <span class="kw">कोवळे ऊन</span>, आल्हाददायक तापमान किंवा कोजागिरीच्या चंद्रप्रकाशात न्हाऊन निघण्याची <span class="kw">‘अनुभूती'</span> येते हे समजावून द्यायला महासंगणकाची गरज नसते.
-            </p>
+    // Toast messenger
+    function showToast(msg) {
+      const toast = document.getElementById('toastMessage');
+      toast.textContent = msg;
+      toast.classList.remove('opacity-0');
+      toast.classList.add('opacity-100');
+      setTimeout(() => {
+        toast.classList.remove('opacity-100');
+        toast.classList.add('opacity-0');
+      }, 2500);
+    }
 
-            <!-- Paragraph 9 -->
-            <p>
-                निसर्गात स्थानिक हवामानावर प्रभाव टाकणारे घटक खूप मोठ्या परिसरात विस्तारलेले असले तरी <span class="kw">'मन-मान'</span> मात्र स्थानिक, नव्हे पूर्णतः आंतरिक स्थितीवर अवलंबून असते.
-            </p>
+    // Share button logic (Web Share API with fallback to copy URL)
+    const shareBtn = document.getElementById('shareBtn');
+    shareBtn.addEventListener('click', () => {
+      const shareData = {
+        title: 'हवामान(वा)चा अंदाज..',
+        text: 'हवामान(वा)चा अंदाज.. - मानसिक हवामान अर्थात मन-मान याविषयीचे विचार',
+        url: window.location.href
+      };
 
-            <!-- Paragraph 10 -->
-            <p>
-                चांगल्या सवयी व <span class="kw">‘मनाचिये ठायी’</span> सतत असलेला <span class="kw">कृतज्ञततेचा भाव</span> हे या ‘मन-मान’शास्त्राच्या नोंदी ठेवायला वापरायचे <span class="kw">तापमापक</span>, <span class="kw">आर्द्रतामापक</span>, <span class="kw">पर्जन्यमापक</span> आहेत. प्रामाणिक <span class="kw">आत्मनिरीक्षण</span> म्हणजे <span class="kw">weather satellites</span> आणि नियमित साधना म्हणजे <span class="kw">‘परम’ सुपर कॉम्प्युटर!!</span>
-            </p>
-
-            <!-- Paragraph 11 -->
-            <p>
-                So, let us <span class="kw">observe</span>, <span class="kw">record</span>, <span class="kw">analyse</span>, <span class="kw">process</span> and try to become a <span class="kw">‘self weather’ forecaster</span>.
-            </p>
-
-            <p class="pt-4 text-right text-slate-500 dark:text-slate-400 font-mono tracking-wider text-base">
-                ~२०२५०६१८
-            </p>
-
-        </article>
-    </main>
-
-    <script>
-        // Theme initialization and toggle
-        const htmlElement = document.documentElement;
-        const themeToggleBtn = document.getElementById('themeToggleBtn');
-        const shareBtn = document.getElementById('shareBtn');
-        const toast = document.getElementById('toast');
-
-        // Check stored or system preference
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            htmlElement.classList.add('dark');
-            htmlElement.classList.remove('light');
-        } else {
-            htmlElement.classList.add('light');
-            htmlElement.classList.remove('dark');
-        }
-
-        themeToggleBtn.addEventListener('click', () => {
-            if (htmlElement.classList.contains('dark')) {
-                htmlElement.classList.remove('dark');
-                htmlElement.classList.add('light');
-                localStorage.setItem('theme', 'light');
-            } else {
-                htmlElement.classList.remove('light');
-                htmlElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            }
+      if (navigator.share) {
+        navigator.share(shareData).catch(() => {
+          // Fallback or user canceled
         });
-
-        // Toast display helper
-        let toastTimeout;
-        function showToast(message) {
-            toast.textContent = message;
-            toast.classList.remove('opacity-0');
-            toast.classList.add('opacity-100');
-            clearTimeout(toastTimeout);
-            toastTimeout = setTimeout(() => {
-                toast.classList.remove('opacity-100');
-                toast.classList.add('opacity-0');
-            }, 2500);
+      } else {
+        // Fallback: copy link using an input element compatible with iframe environments
+        const tempInput = document.createElement('input');
+        tempInput.value = window.location.href;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        try {
+          document.execCommand('copy');
+          showToast('लिंक कॉपी झाली!');
+        } catch (e) {
+          showToast('शेअर करणे शक्य झाले नाही');
         }
-
-        // Share functionality with Web Share API and clipboard fallback
-        shareBtn.addEventListener('click', async () => {
-            const shareData = {
-                title: 'हवामान(वा)चा अंदाज..',
-                text: 'हवामान(वा)चा अंदाज - आपल्या भाव-भावनांच्या हिंदोळ्यांचे, मानसिक हवामानाचे अर्थात ‘मन-माना’चे चिंतन.',
-                url: window.location.href
-            };
-
-            if (navigator.share) {
-                try {
-                    await navigator.share(shareData);
-                } catch (err) {
-                    if (err.name !== 'AbortError') {
-                        fallbackCopy();
-                    }
-                }
-            } else {
-                fallbackCopy();
-            }
-        });
-
-        function fallbackCopy() {
-            try {
-                const tempInput = document.createElement('input');
-                tempInput.value = window.location.href;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                document.execCommand('copy');
-                document.body.removeChild(tempInput);
-                showToast('वेबपृष्ठाची लिंक कॉपी झाली!');
-            } catch (err) {
-                showToast('कृपया URL कॉपी करा');
-            }
-        }
-    </script>
+        document.body.removeChild(tempInput);
+      }
+    });
+  </script>
 </body>
 </html>
